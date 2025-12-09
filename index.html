@@ -1,41 +1,80 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAAI 系統</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DAAI — 程式設計練習系統</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div id="container">
+  <header class="topbar">
+    <div class="brand">DAAI — 程式設計練習系統 (Devil's Advocate + AI)</div>
+    <div class="meta">示範介面 • 右側題目與編輯器 • 左側 AI 聊天視窗</div>
+  </header>
 
-        <!-- 左邊：題目 + 程式碼 -->
-        <div id="left-panel">
-            <div id="problem-box">
-                <h2>題目區</h2>
-                <p>請撰寫一個 Python 程式，輸入兩個數字並輸出其總和。</p>
-            </div>
-
-            <div id="code-box">
-                <h2>程式編輯區 (Python)</h2>
-                <textarea id="code-editor" placeholder="在這裡撰寫程式碼..."></textarea>
-                <button id="run-btn">送出程式</button>
-            </div>
+  <main class="container">
+    <!-- 左側：聊天視窗 -->
+    <section class="left-panel">
+      <div class="panel card">
+        <div class="panel-header">
+          <h3>AI 對話視窗 (Chat Window)</h3>
+          <div class="hint">目前為模擬 GAI 回覆；未來可串接你自己的魔鬼代言人模型。</div>
         </div>
 
-        <!-- 右邊：AI 對話 -->
-        <div id="chat-panel">
-            <h2>AI 對話視窗</h2>
-            <div id="chat-window"></div>
-
-            <div id="chat-input-area">
-                <input type="text" id="chat-input" placeholder="輸入訊息..." />
-                <button id="send-btn">送出</button>
-            </div>
+        <div id="chatMessages" class="chat-messages" aria-live="polite">
+          <!-- 訊息將由 script.js 動態加入 -->
         </div>
 
-    </div>
+        <form id="chatForm" class="chat-input" onsubmit="return false;">
+          <input id="chatInput" type="text" placeholder="輸入訊息與 AI 對談（Enter 送出）" autocomplete="off" />
+          <button id="chatSendBtn" type="button">送出</button>
+        </form>
+      </div>
+    </section>
 
-    <script src="script.js"></script>
+    <!-- 右側：題目 + 編輯器 -->
+    <section class="right-panel">
+      <div class="panel card problem-panel">
+        <div class="panel-header">
+          <h3>教師題目 (Problem)</h3>
+          <div class="problem-controls">
+            <button id="loadSampleBtn" title="載入範例題目">載入範例</button>
+            <button id="clearProblemBtn" title="清除題目">清除</button>
+          </div>
+        </div>
+        <div id="problemArea" class="problem-area" contenteditable="false">
+          <!-- 預設文字 -->
+          <h4>範例題目（示範）</h4>
+          <p>請撰寫一個函式 `sumTo(n)`，回傳從 1 加到 n 的總和。例如 `sumTo(3)` 應回傳 6。</p>
+          <p><em>注意：</em>只需回傳數值，不要在函式中直接列印。</p>
+        </div>
+      </div>
+
+      <div class="panel card editor-panel">
+        <div class="panel-header">
+          <h3>程式碼編輯區 (Code Editor)</h3>
+          <div class="editor-controls">
+            <button id="loadTemplateBtn" title="載入範例程式">載入示範程式</button>
+            <button id="saveLocalBtn" title="儲存程式至 LocalStorage">儲存</button>
+            <button id="clearEditorBtn" title="清空編輯器">清空</button>
+          </div>
+        </div>
+
+        <textarea id="codeEditor" class="code-editor" spellcheck="false" placeholder="// 在此撰寫程式碼...（例如 JavaScript）"></textarea>
+
+        <div class="editor-actions">
+          <button id="submitCodeBtn" class="primary">確認並送出 (Submit)</button>
+          <button id="downloadBtn">下載 .txt</button>
+          <div class="status" id="editorStatus" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>DAAI 範例介面 • 可擴充為串接 ChatGPT / 自訂魔鬼代言人模型</small>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
