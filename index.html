@@ -3,48 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAAI 程式設計系統</title>
+    <title>DAAI 系統</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="container">
 
-<div class="container">
+        <!-- 左邊：題目 + 程式碼 -->
+        <div id="left-panel">
+            <div id="problem-box">
+                <h2>題目區</h2>
+                <p>請撰寫一個 Python 程式，輸入兩個數字並輸出其總和。</p>
+            </div>
 
-    <!-- 左側：題目 + 程式撰寫 -->
-    <div class="left-panel">
-
-        <!-- 題目區 -->
-        <div class="problem-box">
-            <h2>題目（Problem）</h2>
-            <p id="problem-text">
-                請撰寫一個 Python 程式，輸入一個整數後輸出該數字的平方。
-            </p>
+            <div id="code-box">
+                <h2>程式編輯區 (Python)</h2>
+                <textarea id="code-editor" placeholder="在這裡撰寫程式碼..."></textarea>
+                <button id="run-btn">送出程式</button>
+            </div>
         </div>
 
-        <!-- 程式編輯器：嵌入 OnlineGDB -->
-        <div class="editor-box">
-            <iframe 
-                src="https://www.onlinegdb.com/online_python_compiler" 
-                class="editor-iframe">
-            </iframe>
+        <!-- 右邊：AI 對話 -->
+        <div id="chat-panel">
+            <h2>AI 對話視窗</h2>
+            <div id="chat-window"></div>
+
+            <div id="chat-input-area">
+                <input type="text" id="chat-input" placeholder="輸入訊息..." />
+                <button id="send-btn">送出</button>
+            </div>
         </div>
 
     </div>
 
-    <!-- 右側：GAI 對話 -->
-    <div class="right-panel">
-        <h2>與 AI 對話（GAI Chat）</h2>
-        
-        <div id="chat-box" class="chat-box"></div>
-
-        <div class="input-area">
-            <input id="user-input" placeholder="輸入訊息..." />
-            <button id="send-btn">送出</button>
-        </div>
-    </div>
-
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
