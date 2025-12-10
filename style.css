@@ -66,19 +66,37 @@ button{cursor:pointer}
   padding:18px;
   height:calc(100vh - 120px);
 }
-.left-panel{flex: 0 0 60%; display:flex; flex-direction:column; gap:12px;height: 100%;}
-.right-panel{flex: 0 0 40%; display:flex; flex-direction:column; gap:12px;height: 100%;}
+.left-panel{
+  flex: 0 0 60%;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  height: 100%;
+  min-height: 0; /* ★ 必加 */
+}
+
+.right-panel{
+  flex: 0 0 40%;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  height: 100%;
+  min-height: 0; /* ★ 必加 */
+}
 
 /* Panel card */
 .card{
   flex:1;
+  display:flex;           /* ★ 必加：讓內層 flex 才會生效 */
+  flex-direction:column;  /* ★ 必加 */
+  min-height:0;           /* ★ 必加 */
+
   background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   border-radius:var(--radius);
   padding:14px;
   box-shadow:var(--shadow);
   border:1px solid rgba(255,255,255,0.03);
 }
-
 /* Panel header */
 .panel-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px}
 .panel-header h3{margin:0;font-size:16px}
