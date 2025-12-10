@@ -151,7 +151,11 @@ button#downloadBtn{background:transparent;border:1px solid rgba(255,255,255,0.04
 .msg pre{margin:0;font-family:ui-monospace, Menlo, Monaco, "Noto Sans Mono";font-size:13px;white-space:pre-wrap}
 
 /* Chat input */
-.chat-input{display:flex;gap:8px;margin-top:10px}
+.chat-input{display:flex;
+  gap:8px;
+  margin-top:10px;
+  flex-shrink: 0;
+  min-height: 48px;}
 .chat-input input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:#071018;color:var(--text)}
 .chat-input button{padding:10px 12px;border-radius:8px;border:none;background:var(--accent);color:#041416;font-weight:600}
 
