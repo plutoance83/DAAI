@@ -34,7 +34,7 @@ button{cursor:pointer}
   background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);
 }
 .brand{font-weight:700;letter-spacing:0.4px}
-.meta{color:var(--muted);font-size:13px}
+.meta{color:var(--muted);font-size:20px}
 
 /* Layout */
 .container{
