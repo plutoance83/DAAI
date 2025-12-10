@@ -5,16 +5,17 @@
 
 /* Reset / 基本 */
 :root{
-  --bg: #0b0b0d;
-  --card: #0f1720;
-  --muted: #9aa4b2;
-  --accent: #00d1ff;
-  --accent-2: #7ce3b7;
-  --text: #e6eef6;
+  --bg: #121212;              /* 主背景：柔和深灰 */
+  --card: #1c1c1e;            /* 卡片背景：不要太黑 */
+  --muted: #b5bdc9;           /* 次字色：柔和淡灰 */
+  --accent: #00d1ff;          /* 你原本的亮藍：很好，不必改 */
+  --accent-2: #7ce3b7;        /* 你原本的薄荷綠 */
+  --text: #e3e8ef;            /* 主字色：柔白，不刺眼 */
   --danger: #ff6b6b;
-  --glass: rgba(255,255,255,0.04);
+
+  --glass: rgba(255,255,255,0.03); /* 微玻璃 — 更不刺眼 */
   --radius: 10px;
-  --shadow: 0 6px 20px rgba(0,0,0,0.6);
+  --shadow: 0 6px 18px rgba(0,0,0,0.45); /* 陰影也減少對比 */
 }
 
 *{box-sizing:border-box}
@@ -70,8 +71,8 @@ button{cursor:pointer}
   min-height:320px;
   max-height:520px;
   resize:vertical;
-  background:#071018;
-  color:#d9f1ff;
+  background:#1a1f24;     /* 深灰藍、柔和 */
+  color:#dbe7f2;          /* 柔白藍，不刺眼 */
   border:1px solid rgba(255,255,255,0.04);
   padding:12px;
   border-radius:8px;
@@ -103,8 +104,8 @@ button#downloadBtn{background:transparent;border:1px solid rgba(255,255,255,0.04
 
 /* message bubbles */
 .msg{max-width:85%;padding:10px 12px;border-radius:12px;line-height:1.4}
-.msg.user{align-self:flex-end;background:linear-gradient(90deg, rgba(0,209,255,0.12), rgba(124,227,183,0.06));color:var(--text);border:1px solid rgba(0,209,255,0.08)}
-.msg.ai{align-self:flex-start;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:var(--text)}
+.msg.user{align-self:flex-end;background:linear-gradient(90deg, rgba(0,209,255,0.10), rgba(124,227,183,0.06));color:var(--text);border:1px solid rgba(0,209,255,0.12)}
+.msg.ai{align-self:flex-start;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:var(--text)}
 .msg pre{margin:0;font-family:ui-monospace, Menlo, Monaco, "Noto Sans Mono";font-size:13px;white-space:pre-wrap}
 
 /* Chat input */
