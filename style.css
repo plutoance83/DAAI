@@ -33,7 +33,7 @@ button{cursor:pointer}
   border-bottom:1px solid rgba(255,255,255,0.03);
   background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);
 }
-.brand{font-weight:700;letter-spacing:0.4px;font-size:20px}
+.brand{font-weight:700;letter-spacing:0.4px}
 .meta{color:var(--muted);font-size:20px}
 
 /* Layout */
