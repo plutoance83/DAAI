@@ -64,6 +64,41 @@ function shortPreview(text, maxLen=300){
   return text.length > maxLen ? text.slice(0,maxLen) + '\n\n...（已截斷）' : text;
 }
 
+function builtinRead(x) {
+  if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) {
+    throw "File not found: '" + x + "'";
+  }
+  return Sk.builtinFiles["files"][x];
+}
+
+function runPython(code) {
+  return new Promise((resolve, reject) => {
+    let output = "";
+
+    Sk.configure({
+      output: function (text) {
+        // 收集 print() 的輸出
+        output += text;
+      },
+      read: builtinRead,
+      execLimit: 5000  // 避免無限迴圈卡住
+    });
+
+    // 將 Python 程式當作 <stdin> 執行
+    Sk.misceval.asyncToPromise(function () {
+      return Sk.importMainWithBody("<stdin>", false, code, true);
+    }).then(function () {
+      // 若程式完全沒有 print，給個提示
+      if (!output.trim()) {
+        output = "(程式無任何輸出；請確認是否有使用 print()。)";
+      }
+      resolve(output);
+    }).catch(function (err) {
+      reject(err.toString());
+    });
+  });
+}
+
 // ---------- Chat: send / receive ----------
 async function sendChatMessage(){
   const text = chatInput.value.trim();
@@ -95,42 +130,65 @@ chatInput.addEventListener('keydown', e => { if(e.key === 'Enter' && !e.shiftKey
 // ---------- Code editor: submit code ----------
 submitCodeBtn.addEventListener('click', async () => {
   const code = codeEditor.value.trim();
-  if(!code){
+  if (!code) {
     editorStatus.textContent = '請先在編輯區撰寫程式後再送出。';
     setTimeout(()=> editorStatus.textContent = '', 3000);
     return;
   }
 
-  // Add to chat as user message (submission)
-  addMessage('user', `<div><strong>程式提交：</strong><pre>${escapeHtml(shortPreview(code, 800))}</pre></div>`);
+  // 將程式碼當作一則「使用者訊息」送到對話區
+  addMessage('user', `<div><strong>程式提交（Python）：</strong><pre>${escapeHtml(shortPreview(code, 800))}</pre></div>`);
 
-  // Simulate AI reviewing code
-  addMessage('ai', `<div style="opacity:0.7;color:var(--muted)">AI 正在檢視程式…</div>`);
+  // 顯示執行中的提示
+  addMessage('ai', `<div style="opacity:0.7;color:var(--muted)">程式執行中（Python）…</div>`);
   const placeholder = chatMessages.lastElementChild;
 
   try {
-    const aiHtml = await simulateAIResponse(code);
-    placeholder.remove();
-    addMessage('ai', aiHtml);
+    const output = await runPython(code);   // 呼叫我們剛剛寫的 runPython
 
-    editorStatus.textContent = '程式已送出並由 AI 回覆 (模擬)。';
+    placeholder.remove();
+    addMessage('ai', `
+      <div>
+        <strong>程式執行結果 (stdout)：</strong>
+        <pre>${escapeHtml(output)}</pre>
+      </div>
+    `);
+
+    editorStatus.textContent = '程式已成功執行（Python）。';
     setTimeout(()=> editorStatus.textContent = '', 3500);
 
-    // optional: store last submission history in localStorage
+    // 保留原本的「提交紀錄」功能
     const history = JSON.parse(localStorage.getItem('daai_submissions') || '[]');
-    history.push({ts:Date.now(), code:code});
+    history.push({ ts: Date.now(), code: code, output: output });
     localStorage.setItem('daai_submissions', JSON.stringify(history.slice(-30)));
-  } catch(err){
+
+  } catch (err) {
     placeholder.remove();
-    addMessage('ai', `<div style="color:var(--danger)">AI 回覆失敗（模擬）：${escapeHtml(String(err))}</div>`);
+    addMessage('ai', `
+      <div style="color:var(--danger)">
+        <strong>程式執行錯誤：</strong>
+        <pre>${escapeHtml(String(err))}</pre>
+      </div>
+    `);
+
+    editorStatus.textContent = '程式執行發生錯誤，請查看錯誤訊息。';
+    setTimeout(()=> editorStatus.textContent = '', 4000);
   }
 });
 
 // ---------- Editor helper buttons ----------
 loadTemplateBtn.addEventListener('click', () => {
-  const template = `// JavaScript 範例：sumTo(n) 回傳 1+2+...+n\nfunction sumTo(n) {\n  // TODO: 實作\n  let s = 0;\n  for (let i = 1; i <= n; i++) s += i;\n  return s;\n}\n\nconsole.log(sumTo(3)); // 6`;
+  const template = `# Python 範例：sum_to(n) 回傳 1+2+...+n
+def sum_to(n):
+    # TODO: 實作
+    s = 0
+    for i in range(1, n + 1):
+        s += i
+    return s
+
+print(sum_to(3))  # 預期輸出：6`;
   codeEditor.value = template;
-  editorStatus.textContent = '已載入示範程式範本';
+  editorStatus.textContent = '已載入 Python 示範程式範本';
   setTimeout(()=> editorStatus.textContent = '', 1800);
 });
 
