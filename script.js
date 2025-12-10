@@ -13,7 +13,6 @@ const chatSendBtn = document.getElementById('chatSendBtn');
 
 const codeEditor = document.getElementById('codeEditor');
 const submitCodeBtn = document.getElementById('submitCodeBtn');
-const loadTemplateBtn = document.getElementById('loadTemplateBtn');
 const saveLocalBtn = document.getElementById('saveLocalBtn');
 const clearEditorBtn = document.getElementById('clearEditorBtn');
 const downloadBtn = document.getElementById('downloadBtn');
@@ -177,20 +176,6 @@ submitCodeBtn.addEventListener('click', async () => {
 });
 
 // ---------- Editor helper buttons ----------
-loadTemplateBtn.addEventListener('click', () => {
-  const template = `# Python 範例：sum_to(n) 回傳 1+2+...+n
-def sum_to(n):
-    # TODO: 實作
-    s = 0
-    for i in range(1, n + 1):
-        s += i
-    return s
-
-print(sum_to(3))  # 預期輸出：6`;
-  codeEditor.value = template;
-  editorStatus.textContent = '已載入 Python 示範程式範本';
-  setTimeout(()=> editorStatus.textContent = '', 1800);
-});
 
 saveLocalBtn.addEventListener('click', () => {
   localStorage.setItem('daai_code_draft', codeEditor.value);
@@ -230,7 +215,12 @@ clearProblemBtn.addEventListener('click', () => {
 // ---------- restore draft on load ----------
 window.addEventListener('load', () => {
   const draft = localStorage.getItem('daai_code_draft');
-  if(draft) codeEditor.value = draft;
+  const draft = localStorage.getItem('daai_code_draft');
+  if (draft) {
+    codeEditor.value = draft;
+  } else {
+    codeEditor.value = "";  // 不載入任何預設程式碼
+  }
 
   // Welcome message
   addMessage('ai', `<div><strong>系統：</strong> 歡迎使用 DAAI 範例系統。你可以在右側編輯器撰寫程式，按「確認並送出」會將程式提交給 AI（目前為模擬回覆）。亦可在下方與 AI 對談。</div>`);
