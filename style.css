@@ -33,8 +33,30 @@ button{cursor:pointer}
   border-bottom:1px solid rgba(255,255,255,0.03);
   background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);
 }
-.brand{font-weight:700;letter-spacing:0.4px}
-.meta{color:var(--muted);font-size:20px}
+.brand{
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.8px;
+
+  /* 科技感線性漸層文字 */
+  background: linear-gradient(90deg, #00d1ff, #7ce3b7);
+  -webkit-background-clip: text;
+  color: transparent;
+
+  /* 增加品牌存在感 */
+  text-shadow: 0 0 8px rgba(0, 209, 255, 0.15);
+}
+.brand-subtitle{
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  margin-top: -4px;
+}
+.brand-icon {
+  font-size: 22px;
+  color: #ff6b6b; /* 你的 danger 紅色 */
+}
+
 
 /* Layout */
 .container{
