@@ -67,7 +67,7 @@ button{cursor:pointer}
   height:calc(100vh - 120px);
 }
 .left-panel{
-  flex: 0 0 40%;
+  flex: 0 0 60%;
   display:flex;
   flex-direction:column;
   gap:12px;
@@ -76,7 +76,7 @@ button{cursor:pointer}
 }
 
 .right-panel{
-  flex: 0 0 60%;
+  flex: 0 0 40%;
   display:flex;
   flex-direction:column;
   gap:12px;
