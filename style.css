@@ -66,8 +66,8 @@ button{cursor:pointer}
   padding:18px;
   height:calc(100vh - 120px);
 }
-.left-panel{flex: 0 0 40%; display:flex; flex-direction:column; gap:12px;height: 100%;}
-.right-panel{flex: 0 0 60%; display:flex; flex-direction:column; gap:12px;height: 100%;}
+.left-panel{flex: 0 0 60%; display:flex; flex-direction:column; gap:12px;height: 100%;}
+.right-panel{flex: 0 0 40%; display:flex; flex-direction:column; gap:12px;height: 100%;}
 
 /* Panel card */
 .card{
